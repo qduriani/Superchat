@@ -7,10 +7,11 @@ import 'package:superchat/messages/messages_bloc.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage(this.id, this.participantId, {super.key});
+  const ChatPage(this.id, this.participantId, this.participantName, {super.key});
 
   final String id;
   final String participantId;
+  final String participantName;
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -19,6 +20,7 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   late String _id;
   late String _participantId;
+  late String _participantName;
 
   late types.User _user;
   List<types.Message> _messages = [];
@@ -28,6 +30,7 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
     _id = widget.id;
     _participantId = widget.participantId;
+    _participantName = widget.participantName;
     _user = types.User(id: widget.id);
   }
 
@@ -43,13 +46,20 @@ class _ChatPageState extends State<ChatPage> {
       data["type"] = types.MessageType.text.name;
       return types.Message.fromJson(data);
     } catch (exception) {
-      print(exception);
+      // print(exception);
       return null;
     }
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
+      appBar: AppBar(
+        title: Text(_participantName, style: const TextStyle(color: Colors.white)),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        iconTheme: const IconThemeData(
+          color: Colors.white, //change your color here
+        ),
+      ),
       body: BlocProvider(
           create: (context) => MessagesBloc()
             ..add(MessagesLoadedChatEvent(participantId: _participantId)),
@@ -70,9 +80,6 @@ class _ChatPageState extends State<ChatPage> {
 
                       return Chat(
                         messages: _messages,
-                        // onAttachmentPressed: _handleAttachmentPressed,
-                        // onMessageTap: _handleMessageTap,
-                        // onPreviewDataFetched: _handlePreviewDataFetched,
                         onSendPressed: (partialText) => state.sendNewMessage(
                             partialText, _id, _participantId),
                         showUserAvatars: true,

@@ -23,7 +23,10 @@ class HomePage extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(kAppTitle),
+          title: const Text(kAppTitle, style: TextStyle(color: Colors.white)),
+          iconTheme: const IconThemeData(
+            color: Colors.white, //change your color here
+          ),
           backgroundColor: theme.colorScheme.primary,
           actions: [
             IconButton(

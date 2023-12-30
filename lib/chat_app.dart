@@ -15,15 +15,15 @@ class ChatApp extends StatelessWidget {
       title: kAppTitle,
       theme: ThemeData(
         useMaterial3: true,
-        primarySwatch: Colors.blue,
         colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.deepPurple,
+          primarySwatch: Colors.blue,
           backgroundColor: Colors.white,
-          accentColor: Colors.blueGrey,
+          accentColor: Colors.black,
           brightness: Brightness.light,
         ),
       ),
       home: isLoggedIn ? const HomePage() : const SignInPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

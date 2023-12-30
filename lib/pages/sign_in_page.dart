@@ -35,7 +35,7 @@ class _SignInPageState extends State<SignInPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(kAppTitle),
+        title: const Text(kAppTitle, style: TextStyle(color: Colors.white)),
         backgroundColor: theme.colorScheme.primary,
       ),
       body: SafeArea(
